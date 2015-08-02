@@ -366,10 +366,14 @@
 	else
 		cooldown += 200
 
-	if(prob(50 / severity))
-		owner.heart_attack = 1
-		spawn(600 / severity)
-			owner.heart_attack = 0
+	if(istype(owner, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = owner
+		if(H.stat != DEAD && prob(50 / severity))
+			H.heart_attack = 1
+			spawn(600 / severity)
+				H.heart_attack = 0
+				if(H.stat == CONSCIOUS)
+					H << "<span class='notice'>You feel your heart beating again!</span>"
 
 
 //BOX O' IMPLANTS
@@ -379,8 +383,7 @@
 	desc = "A sleek, sturdy box."
 	icon_state = "cyber_implants"
 	var/list/boxed = list(/obj/item/cybernetic_implant/eyes/xray,/obj/item/cybernetic_implant/eyes/thermals,
-						/obj/item/cybernetic_implant/brain/anti_drop, /obj/item/cybernetic_implant/brain/anti_stun,
-						/obj/item/cybernetic_implant/chest/nutriment/plus, /obj/item/cybernetic_implant/chest/reviver)
+						/obj/item/cybernetic_implant/brain/anti_stun, /obj/item/cybernetic_implant/chest/reviver)
 	var/amount = 5
 
 /obj/item/weapon/storage/box/cyber_implants/New()

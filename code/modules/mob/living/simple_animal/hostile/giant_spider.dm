@@ -13,10 +13,7 @@
 	if(isliving(target))
 		var/mob/living/L = target
 		if(L.reagents)
-			L.reagents.add_reagent("toxin", poison_per_bite)
-			if(prob(poison_per_bite))
-				L << "<span class='danger'>You feel a tiny prick.</span>"
-				L.reagents.add_reagent(poison_type, poison_per_bite)
+			L.reagents.add_reagent(poison_type, poison_per_bite)
 
 
 
@@ -92,7 +89,7 @@
 					stop_automated_movement = 0
 					walk(src,0)
 
-/mob/living/simple_animal/hostile/poison/giant_spider/nurse/proc/GiveUp(var/C)
+/mob/living/simple_animal/hostile/poison/giant_spider/nurse/proc/GiveUp(C)
 	spawn(100)
 		if(busy == MOVING_TO_TARGET)
 			if(cocoon_target == C && get_dist(src,cocoon_target) > 1)
@@ -249,6 +246,8 @@
 					var/obj/effect/spider/eggcluster/C = new /obj/effect/spider/eggcluster(src.loc)
 					if(ckey)
 						C.player_spiders = 1
+					C.poison_type = poison_type
+					C.poison_per_bite = poison_per_bite
 					fed--
 			busy = 0
 			stop_automated_movement = 0

@@ -156,7 +156,7 @@
 		O.real_name = newname
 	else
 		if(cmptext("monkey",copytext(O.dna.real_name,1,7)))
-			O.dna.real_name = random_name(O.gender)
+			O.dna.real_name = random_unique_name(O.gender)
 		O.real_name = O.dna.real_name
 		O.name = O.real_name
 
@@ -290,7 +290,7 @@
 
 
 //human -> robot
-/mob/living/carbon/human/proc/Robotize(var/delete_items = 0)
+/mob/living/carbon/human/proc/Robotize(delete_items = 0)
 	if (notransform)
 		return
 	for(var/obj/item/W in src)
@@ -430,7 +430,7 @@
 	for(var/t in organs)	//this really should not be necessary
 		qdel(t)
 
-	var/mob/living/simple_animal/pet/corgi/new_corgi = new /mob/living/simple_animal/pet/corgi (loc)
+	var/mob/living/simple_animal/pet/dog/corgi/new_corgi = new /mob/living/simple_animal/pet/dog/corgi (loc)
 	new_corgi.a_intent = "harm"
 	new_corgi.key = key
 
@@ -497,7 +497,7 @@
  * This proc is here to force coders to manually place their mob in this list, hopefully tested.
  * This also gives a place to explain -why- players shouldnt be turn into certain mobs and hopefully someone can fix them.
  */
-/mob/proc/safe_animal(var/MP)
+/mob/proc/safe_animal(MP)
 
 //Bad mobs! - Remember to add a comment explaining what's wrong with the mob
 	if(!MP)
@@ -509,7 +509,7 @@
 //Good mobs!
 	if(ispath(MP, /mob/living/simple_animal/pet/cat))
 		return 1
-	if(ispath(MP, /mob/living/simple_animal/pet/corgi))
+	if(ispath(MP, /mob/living/simple_animal/pet/dog/corgi))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/crab))
 		return 1
